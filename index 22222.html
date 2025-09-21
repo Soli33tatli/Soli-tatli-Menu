@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>قائمة المقهى</title>
+  <style>
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background:#ffffff;
+      color:#222;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      direction:rtl;
+    }
+    #loading {
+      position:fixed;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: #fff;
+      z-index:9999;
+    }
+    .spinner{
+      width:70px;
+      height:70px;
+      border-radius:50%;
+      border:7px solid rgba(0,0,0,0.08);
+      border-top-color:#2aa6d6;
+      animation:spin 1s linear infinite;
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .wrap{
+      max-width:920px;
+      margin:0 auto;
+      padding:30px 16px 80px;
+      text-align:right;
+    }
+    header.logo{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      justify-content:center;
+      margin-bottom:18px;
+    }
+    header .title{font-size:20px;font-weight:700}
+    .brand-svg{width:120px;height:80px}
+    .category{
+      border-radius:10px;
+      border:1px solid #e6e9ee;
+      margin-bottom:12px;
+      overflow:hidden;
+      transition:box-shadow .15s ease;
+      background:linear-gradient(180deg,#ffffff,#fbfeff);
+    }
+    .cat-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 16px;
+      cursor:pointer;
+    }
+    .cat-head h3{margin:0;font-size:17px}
+    .cat-head .count{opacity:.6;font-size:13px}
+    .items{
+      padding:0 16px;
+      max-height:0;
+      overflow:hidden;
+      transition:max-height .28s ease;
+    }
+    .items ul{list-style:none;padding:0;margin:0}
+    .items li{
+      display:flex;
+      justify-content:space-between;
+      padding:12px 0;
+      border-bottom:1px dashed #eee;
+      font-size:15px;
+    }
+    .items li:last-child{border-bottom:0}
+    .price{opacity:.8}
+    .category.open{box-shadow:0 6px 18px rgba(0,0,0,.06)}
+    footer{margin-top:22px;text-align:center;color:#6b6f77;font-size:13px}
+    @media (max-width:420px){
+      .brand-svg{width:90px;height:60px}
+      body{padding-bottom:40px}
+    }
+  </style>
+</head>
+<body>
+  <div id="loading" aria-hidden="false">
+    <div class="spinner" role="status" aria-label="جارٍ التحميل"></div>
+  </div>
+  <main id="app" class="wrap" style="opacity:0;transition:opacity .18s linear">
+    <header class="logo" aria-hidden="false">
+      <svg class="brand-svg" viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="logo">
+        <defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#4fd1e0"/><stop offset="1" stop-color="#1383d6"/></linearGradient></defs>
+        <g transform="translate(10,10)">
+          <ellipse cx="90" cy="100" rx="70" ry="12" fill="#e7fbff" />
+          <path d="M40 60 C 55 25, 125 25, 140 60 L100 48 L40 60 Z" fill="url(#g)" stroke="#0b6ea0" stroke-width="2"/>
+          <circle cx="75" cy="63" r="8" fill="#fff"/><circle cx="75" cy="63" r="4" fill="#0b3b54"/>
+          <circle cx="105" cy="63" r="8" fill="#fff"/><circle cx="105" cy="63" r="4" fill="#0b3b54"/>
+        </g>
+      </svg>
+      <div class="title">قائمة المقهى</div>
+    </header>
+    <section id="menu">
+      <article class="category">
+        <div class="cat-head" role="button" tabindex="0">
+          <h3>القهوة الساخنة</h3>
+          <div class="count">3 أصناف</div>
+        </div>
+        <div class="items">
+          <ul>
+            <li><span>إسبريسو</span><span class="price">15₺</span></li>
+            <li><span>قهوة تركية</span><span class="price">12₺</span></li>
+            <li><span>كابتشينو</span><span class="price">22₺</span></li>
+          </ul>
+        </div>
+      </article>
+      <article class="category">
+        <div class="cat-head" role="button" tabindex="0">
+          <h3>المشروبات الباردة</h3>
+          <div class="count">3 أصناف</div>
+        </div>
+        <div class="items">
+          <ul>
+            <li><span>أيس لاتيه</span><span class="price">18₺</span></li>
+            <li><span>شاي مثلج</span><span class="price">14₺</span></li>
+            <li><span>عصير فواكه طازج</span><span class="price">20₺</span></li>
+          </ul>
+        </div>
+      </article>
+      <article class="category">
+        <div class="cat-head" role="button" tabindex="0">
+          <h3>حلويات</h3>
+          <div class="count">2 أصناف</div>
+        </div>
+        <div class="items">
+          <ul>
+            <li><span>كعكة الشوكولاتة</span><span class="price">30₺</span></li>
+            <li><span>كرواسون</span><span class="price">10₺</span></li>
+          </ul>
+        </div>
+      </article>
+    </section>
+    <footer>للمساعدة أرسل لي رابط الـ GitHub repo أو أخطاء الـ Console</footer>
+  </main>
+  <noscript>
+    <style>#loading{display:none} #app{opacity:1}</style>
+    <div style="padding:18px;text-align:center;background:#fff;border-top:1px solid #eee">الرجاء تفعيل JavaScript لعرض القائمة</div>
+  </noscript>
+  <script>
+    (function(){
+      function hideLoading(){
+        var L = document.getElementById('loading');
+        var A = document.getElementById('app');
+        if(L) L.style.display = 'none';
+        if(A) A.style.opacity = '1';
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', hideLoading);
+      } else {
+        hideLoading();
+      }
+      function setupCategories(){
+        var heads = document.querySelectorAll('.category .cat-head');
+        heads.forEach(function(h){
+          var article = h.parentElement;
+          var items = article.querySelector('.items');
+          items.style.maxHeight = null;
+          function toggle(){
+            if(article.classList.contains('open')){
+              items.style.maxHeight = null;
+              article.classList.remove('open');
+            } else {
+              items.style.maxHeight = (items.scrollHeight) + 'px';
+              article.classList.add('open');
+            }
+          }
+          h.addEventListener('click', toggle);
+          h.addEventListener('keydown', function(e){
+            if(e.key === 'Enter' || e.key === ' '){
+              e.preventDefault();
+              toggle();
+            }
+          });
+        });
+      }
+      setupCategories();
+      window.addEventListener('error', function(){ hideLoading(); }, true);
+      window.addEventListener('unhandledrejection', function(){ hideLoading(); }, true);
+    })();
+  </script>
+</body>
+</html>
